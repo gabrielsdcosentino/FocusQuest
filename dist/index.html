@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>FocusQuest</title>
+  <script type="module" crossorigin src="/assets/index-CboWkZRQ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CkPWuyOv.css">
+</head>
+<body>
+
+    <div id="app">
+        <header>
+            <div class="stats-box">
+                <span>LVL <span id="hero-lvl">1</span></span>
+            </div>
+            <div class="stats-box gold">
+                <span>💰 <span id="hero-gold">0</span></span>
+            </div>
+        </header>
+
+        <main id="battle-arena">
+            <div class="character-area">
+                <div id="monster-sprite" class="sprite pixel-art"></div>
+                <div class="hp-bar-container">
+                    <div id="monster-hp" class="hp-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+
+            <div id="timer-display" class="pixel-font">25:00</div>
+
+            <div class="character-area">
+                <div id="hero-sprite" class="sprite pixel-art"></div>
+                <div class="text-center">Heroi</div>
+            </div>
+        </main>
+
+        <footer id="controls">
+            <button id="btn-start" class="btn pixel-btn">INICIAR BATALHA</button>
+            <button id="btn-giveup" class="btn pixel-btn btn-danger hidden">DESISTIR</button>
+        </footer>
+    </div>
+
+</body>
+</html>
