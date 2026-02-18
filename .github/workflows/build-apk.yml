@@ -29,8 +29,10 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Sync Capacitor
-        run: npx cap sync android
+      - name: Add and Sync Android Platform
+        run: |
+          npx cap add android || echo "Android já existe"
+          npx cap sync android
 
       - name: Build APK
         run: |
