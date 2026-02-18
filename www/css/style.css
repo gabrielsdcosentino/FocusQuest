@@ -1,9 +1,7 @@
-/* Reset Básico */
 * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
 body {
-    background-color: #1a1a1a; /* Cinza escuro */
-    color: #e0e0e0;
+    background-color: #000;
     font-family: 'Courier New', monospace;
     height: 100vh;
     display: flex;
@@ -14,58 +12,81 @@ body {
 #app {
     width: 100%; max-width: 500px; height: 100%;
     display: flex; flex-direction: column; padding: 20px;
-    background: #2c2c2c; /* Fundo da "Masmorra" */
+    /* FUNDO MÁGICO: Um gradiente que imita céu noturno + chão */
+    background: linear-gradient(to bottom, #203c56 0%, #203c56 60%, #0d1e2d 60%, #0d1e2d 100%);
+    position: relative;
 }
 
-/* Cabeçalho */
-header { display: flex; justify-content: space-between; margin-bottom: 20px; }
+/* Efeito de "Chão" onde os bonecos pisam */
+#app::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 40%;
+    background: repeating-linear-gradient(45deg, #1a2639, #1a2639 10px, #141e2e 10px, #141e2e 20px);
+    z-index: 0; opacity: 0.5;
+}
+
+header { display: flex; justify-content: space-between; z-index: 10; }
 
 .stats-box {
-    background: #3e3546; padding: 8px 15px;
-    border: 3px solid #7c6888; font-weight: bold;
-    box-shadow: 0 4px 0 #000;
+    background: rgba(0, 0, 0, 0.6); padding: 8px 15px;
+    border: 2px solid #ffd700; color: #fff; border-radius: 8px;
+    font-weight: bold; backdrop-filter: blur(4px);
 }
-.gold { color: #f4b41b; }
+.gold { color: #ffd700; }
 
-/* Arena Central */
 #battle-arena {
     flex: 1; display: flex; flex-direction: column;
-    align-items: center; justify-content: space-evenly;
+    align-items: center; justify-content: center; /* Centraliza tudo */
+    gap: 20px; z-index: 10; /* Fica acima do chão */
 }
 
-/* CONFIGURAÇÃO DOS SPRITES */
+/* Animação de Respiração (Idle Animation) */
+@keyframes breathe {
+    0% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.05) translateY(-5px); }
+    100% { transform: scale(1) translateY(0); }
+}
+
 .sprite {
-    width: 128px; height: 128px; /* Tamanho grande na tela */
-    image-rendering: pixelated;   /* O SEGREDO: Mantém os pixels quadrados perfeitos */
-    background-size: contain;     /* Ajusta a imagem dentro do quadrado */
+    width: 140px; height: 140px;
+    image-rendering: pixelated;
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.5)); /* Sombra para destacar do fundo */
+    /* Aplica a animação */
+    animation: breathe 2s infinite ease-in-out;
+    filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.5));
 }
 
-/* Links para as imagens que acabamos de baixar */
-#monster-sprite { background-image: url('../assets/monster.png'); }
-#hero-sprite { background-image: url('../assets/hero.png'); }
+/* Monstro flutua em tempo diferente */
+#monster-sprite { 
+    background-image: url('../assets/monster.png'); 
+    animation-duration: 3s; 
+}
 
-/* Timer Gigante */
-#timer-display { font-size: 4.5rem; color: #fff; text-shadow: 4px 4px 0 #000; }
+#hero-sprite { 
+    background-image: url('../assets/hero.png'); 
+    margin-top: -20px; /* Sobrepõe um pouco para dar profundidade */
+}
 
-/* Barra de Vida */
+#timer-display { 
+    font-size: 5rem; color: #fff; 
+    text-shadow: 0 0 10px rgba(255,255,255,0.5); 
+    font-weight: bold; margin: 20px 0; z-index: 10;
+}
+
 .hp-bar-container {
-    width: 140px; height: 14px; background: #111;
-    border: 2px solid #fff; margin-top: 10px;
+    width: 200px; height: 16px; background: #333;
+    border: 2px solid #fff; border-radius: 10px; overflow: hidden;
 }
-.hp-fill { height: 100%; background: #d95763; transition: width 0.3s; }
+.hp-fill { height: 100%; background: linear-gradient(90deg, #ff4444, #cc0000); transition: width 0.3s; }
 
-/* Botões */
-#controls { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+#controls { margin-top: auto; z-index: 10; width: 100%; }
 
 .btn {
-    padding: 18px; font-size: 1.2rem; font-family: inherit; font-weight: bold;
-    color: white; background: #ac3232; border: 4px solid #fff;
-    cursor: pointer; text-transform: uppercase;
-    box-shadow: 0 6px 0 #000;
+    width: 100%; padding: 20px; font-size: 1.2rem; font-weight: bold;
+    color: white; background: #4CAF50; border: none; border-radius: 12px;
+    box-shadow: 0 6px 0 #2E7D32; cursor: pointer; text-transform: uppercase;
 }
-.btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #000; }
-.btn-danger { background: #5b6ee1; border-color: #aeb5ea; }
+.btn:active { transform: translateY(6px); box-shadow: none; }
+.btn-danger { background: #e53935; box-shadow: 0 6px 0 #b71c1c; }
 .hidden { display: none; }
